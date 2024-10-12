@@ -1,46 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rincian Pembayaran</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-900 text-white">
-  <div class="container mx-auto p-6">
-    <h1 class="text-3xl font-bold mb-6">Rincian Pembayaran</h1>
-    
-    <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
-      <p class="text-xl mb-4"><strong>Lapangan:</strong> <span id="lapangan-name"></span></p>
-      <p class="text-xl mb-4"><strong>Jam Sewa:</strong> <span id="jam-sewa"></span></p>
-      <p class="text-xl mb-4"><strong>Sewa Properti:</strong> <span id="sewa-properti"></span></p>
-      <p class="text-2xl font-bold mb-6"><strong>Total Pembayaran:</strong> <span id="total-harga"></span></p>
+<x-layout>
+  <div class="max-w-3xl mx-auto p-6 mt-12">
+      <div class="bg-gray-800 p-8 rounded-lg shadow-lg text-white">
+          <h2 class="text-3xl font-bold mb-4 text-center">Detail Booking Anda</h2>
 
-      <a href="#" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Lanjutkan Pembayaran
-      </a>
-    </div>
+
+          <div class="space-y-4">
+              <div class="flex justify-between">
+                  <span class="font-semibold">Nama:</span>
+                  <span>{{$booking->nama }}</span>
+              </div>
+              <div class="flex justify-between">
+                  <span class="font-semibold">Lapangan:</span>
+                  <span>{{$booking->lapangan }}</span>
+              </div>
+              <div class="flex justify-between">
+                  <span class="font-semibold">Tanggal Booking:</span>
+                  <span>{{$booking->tanggal_booking }}</span>
+              </div>
+              <div class="flex justify-between">
+                  <span class="font-semibold">Jam Mulai:</span>
+                  <span>{{$booking->jam_mulai }}</span>
+              </div>
+              <div class="flex justify-between">
+                  <span class="font-semibold">Jam Selesai:</span>
+                  <span>{{$booking->jam_selesai }}</span>
+              </div>
+              @if($booking->properti)
+              <div class="flex justify-between">
+                  <span class="font-semibold">Properti Tambahan:</span>
+                  <span>{{$booking->properti }}</span>
+              </div>
+              @endif
+              <div class="flex justify-between text-blue-400 text-lg font-bold">
+                  <span>Total Harga:</span>
+                  <span>Rp {{ number_format($booking->total_harga, 0, ',', '.') }}</span>
+              </div>
+          </div>
+         
+
+          <!-- Tombol Pembayaran -->
+          <div class="mt-8 text-center">
+              <button id="pay-button" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                  Lanjutkan ke Pembayaran
+              </button>
+          </div>
+      </div>
   </div>
 
-  <script>
-    // Retrieve booking details from localStorage
-    const lapanganName = localStorage.getItem('lapanganName');
-    const jamMulai = localStorage.getItem('jamMulai');
-    const jamSelesai = localStorage.getItem('jamSelesai');
-    const propertiNames = JSON.parse(localStorage.getItem('propertiNames'));
-    const totalPrice = localStorage.getItem('totalPrice');
 
-    // Display booking details
-    document.getElementById('lapangan-name').innerText = lapanganName || 'Tidak Dipilih';
-    document.getElementById('jam-sewa').innerText = `${jamMulai} - ${jamSelesai}`;
-    
-    if (propertiNames.length > 0) {
-      document.getElementById('sewa-properti').innerText = propertiNames.join(', ');
-    } else {
-      document.getElementById('sewa-properti').innerText = 'Tidak ada properti disewa';
-    }
-
-    document.getElementById('total-harga').innerText = totalPrice || 'Rp0';
-  </script>
-</body>
-</html>
+<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}>"></script>
+<script type="text/javascript">
+  document.getElementById('pay-button').onclick = function(){
+    // SnapToken acquired from previous step
+    snap.pay(`{{$booking->snap_token }}`, {
+      // Optional
+      onSuccess: function(result){
+        /* You may add your own js here, this is just example */ document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+      },
+      // Optional
+      onPending: function(result){
+        /* You may add your own js here, this is just example */ document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+      },
+      // Optional
+      onError: function(result){
+        /* You may add your own js here, this is just example */ document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+      }
+    });
+  };
+</script>
+</x-layout>
