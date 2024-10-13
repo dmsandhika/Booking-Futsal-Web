@@ -40,7 +40,9 @@ class BookingController extends Controller
                 'jam_mulai' =>'required',
                 'jam_selesai' => 'required',
                 'properti' => 'nullable',
-                'total_harga' => 'required'                 
+                'total_harga' => 'required',                
+                'dibayar' => 'required',
+                'jenis_pembayaran' => 'required'                 
             ]);
             $booking=Booking::create([
                 'nama' => $request->nama,
@@ -49,7 +51,9 @@ class BookingController extends Controller
                 'jam_mulai' => $request->jam_mulai,
                 'jam_selesai' => $request->jam_selesai,
                 'properti' => $request->has('properti') ? implode(', ', $request->properti) : null,
-                'total_harga' => $request->total_harga
+                'total_harga' => $request->total_harga,
+                'dibayar' => $request->dibayar,
+                'jenis_pembayaran' => $request->jenis_pembayaran
             ]);
             // Set your Merchant Server Key
             \Midtrans\Config::$serverKey = config('midtrans.serverKey');
@@ -62,7 +66,7 @@ class BookingController extends Controller
             $params = array(
                 'transaction_details' => array(
                     'order_id' => rand(),
-                    'gross_amount' => $request->total_harga,
+                    'gross_amount' => $request->dibayar,
                 )
             );
             $snapToken = \Midtrans\Snap::getSnapToken($params);
@@ -89,7 +93,8 @@ class BookingController extends Controller
      * @param  \App\Models\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function success(Booking $booking){
+    public function success(Booking $booking, string $id){
+        $booking = Booking::findOrFail($id);
         $booking->status = 'paid';
         $booking->save();
         return view('success');

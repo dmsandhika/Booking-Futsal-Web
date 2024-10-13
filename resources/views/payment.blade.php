@@ -31,9 +31,13 @@
                   <span>{{$booking->properti }}</span>
               </div>
               @endif
-              <div class="flex justify-between text-blue-400 text-lg font-bold">
+              <div class="flex justify-between  text-lg font-bold">
                   <span>Total Harga:</span>
                   <span>Rp {{ number_format($booking->total_harga, 0, ',', '.') }}</span>
+              </div>
+              <div class="flex justify-between text-blue-400 text-lg font-bold">
+                  <span>Jumlah yang Harus Dibayar:</span>
+                  <span>Rp {{ number_format($booking->dibayar, 0, ',', '.') }}</span>
               </div>
           </div>
          
@@ -55,7 +59,7 @@
     snap.pay(`{{$booking->snap_token }}`, {
       // Optional
       onSuccess: function(result){
-        /* You may add your own js here, this is just example */ document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+        window.location.href = `{{ route('payment.success', ['id' => $booking->id]) }}`;
       },
       // Optional
       onPending: function(result){

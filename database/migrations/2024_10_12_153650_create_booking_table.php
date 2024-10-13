@@ -20,6 +20,8 @@ return new class extends Migration
             $table->time('jam_selesai'); 
             $table->string('properti')->nullable();
             $table->integer('total_harga');
+            $table->integer('dibayar');
+            $table->enum('jenis_pembayaran', ['DP', 'Lunas']);
             $table->string('snap_token')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();

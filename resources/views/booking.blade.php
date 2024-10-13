@@ -76,10 +76,25 @@
           </div>
         </div>
         <div class="mb-6">
-          <span class="block text-lg font-semibold text-gray-200">Total Harga: </span>
-          <span id="total-harga" class="text-xl text-blue-400">Rp0</span>
+          <label class="block text-lg font-semibold mb-2 text-gray-200">Pembayaran</label>
+          <div class="flex items-center space-x-6 text-gray-300">
+            <label>
+              <input type="radio" name="jenis_pembayaran" value="DP" class="mr-2" onchange="updateTotal();">
+              DP 50%
+            </label>
+            <label>
+              <input type="radio" name="jenis_pembayaran" value="Lunas" class="mr-2" onchange="updateTotal();">
+              Lunas
+            </label>
+          </div>
+        </div>
+        <div class="mb-6">
+          <p class="block text-lg font-semibold text-gray-200">Total Harga: <span id="total-harga">Rp0</span></p>
+          <span class="block text-lg font-semibold text-gray-200">Jumlah yang Harus Dibayar: </span>
+          <span id="harus-dibayar" class="text-xl text-blue-400">Rp0</span>
         </div>
         <input type="hidden" name="total_harga" id="total-harga-input">
+        <input  name="dibayar" id="harus-dibayar-input">
 
         <div>
           <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" >
@@ -100,29 +115,42 @@
       }
 
       function updateTotal() {
-      let total = 0;
+        let total = 0;
+        let harus_dibayar = 0;
 
-      const lapanganSelected = document.querySelector('input[name="lapangan"]:checked');
-      if (lapanganSelected) {
-        const jamMulai = document.querySelector('select[name="jam_mulai"]').value;
-        const jamSelesai = document.querySelector('select[name="jam_selesai"]').value;
-        const startTime = new Date(`2023-01-01T${jamMulai}:00`);
-        const endTime = new Date(`2023-01-01T${jamSelesai}:00`);
-        const hours = (endTime - startTime) / (1000 * 60 * 60); 
+        const lapanganSelected = document.querySelector('input[name="lapangan"]:checked');
+        if (lapanganSelected) {
+          const jamMulai = document.querySelector('select[name="jam_mulai"]').value;
+          const jamSelesai = document.querySelector('select[name="jam_selesai"]').value;
+          const startTime = new Date(`2023-01-01T${jamMulai}:00`);
+          const endTime = new Date(`2023-01-01T${jamSelesai}:00`);
+          const hours = (endTime - startTime) / (1000 * 60 * 60); 
+          
+          total += parseInt(lapanganSelected.getAttribute('data-harga')) * hours;
+        }
 
-        total += parseInt(lapanganSelected.getAttribute('data-harga')) * hours;
+        const propertiRadios = document.querySelector('input[name="sewa_properti"]:checked');
+        if (propertiRadios && propertiRadios.value === 'Ya') {
+          const propertiCheckboxes = document.querySelectorAll('.properti-checkbox:checked');
+          propertiCheckboxes.forEach(checkbox => {
+            total += parseInt(checkbox.getAttribute('data-harga'));
+          });
+        }
+
+        const jenisPembayaran = document.querySelector('input[name="jenis_pembayaran"]:checked');
+        if (jenisPembayaran) {
+          if (jenisPembayaran.value === 'DP') {
+            harus_dibayar = total / 2; 
+          } else if (jenisPembayaran.value === 'Lunas') {
+            harus_dibayar = total;  
+          }
+        }
+
+        document.getElementById('total-harga').innerText = `Rp${total}`;
+        document.getElementById('total-harga-input').value = total;
+        document.getElementById('harus-dibayar').innerText = `Rp${harus_dibayar}`; 
+        document.getElementById('harus-dibayar-input').value = harus_dibayar; 
       }
-
-      const propertiRadios = document.querySelector('input[name="sewa_properti"]:checked');
-      if (propertiRadios && propertiRadios.value === 'Ya') {
-        const propertiCheckboxes = document.querySelectorAll('.properti-checkbox:checked');
-        propertiCheckboxes.forEach(checkbox => {
-          total += parseInt(checkbox.getAttribute('data-harga'));
-        });
-      }
-      document.getElementById('total-harga').innerText = `Rp${total}`;
-      document.getElementById('total-harga-input').value = total; 
-    }
     </script>
     
   
