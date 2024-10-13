@@ -6,6 +6,9 @@ use App\Models\Booking;
 use App\Models\Lapangan;
 use App\Models\Properti;
 use Illuminate\Http\Request;
+use Hidehalo\Nanoid\Client;
+use Hidehalo\Nanoid\GeneratorInterface;
+
 
 class BookingController extends Controller
 {
@@ -44,7 +47,11 @@ class BookingController extends Controller
                 'dibayar' => 'required',
                 'jenis_pembayaran' => 'required'                 
             ]);
+            $client = new Client();
+            $generator = $client->formattedId('0123456789',10);
+            $id_pembayaran = 'FTSL'.$generator;
             $booking=Booking::create([
+                'id_pembayaran' => $id_pembayaran,
                 'nama' => $request->nama,
                 'lapangan' => $request->lapangan,
                 'tanggal_booking' => $request->tanggal_booking,
@@ -74,7 +81,7 @@ class BookingController extends Controller
             $booking->save();
             return redirect()->route('payment.show', $booking->id);
         } catch(\Exception $e){
-            dd($e);
+            dd($e->getMessage());
         }
     }
 

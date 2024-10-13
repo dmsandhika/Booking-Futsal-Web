@@ -6,6 +6,11 @@
 
           <div class="space-y-4">
               <div class="flex justify-between">
+                  <span class="font-semibold">ID Pembayaran:</span>
+                  <span id="id">#{{$booking->id_pembayaran }}
+                  </span>
+              </div>
+              <div class="flex justify-between">
                   <span class="font-semibold">Nama:</span>
                   <span>{{$booking->nama }}</span>
               </div>
@@ -15,7 +20,7 @@
               </div>
               <div class="flex justify-between">
                   <span class="font-semibold">Tanggal Booking:</span>
-                  <span>{{$booking->tanggal_booking }}</span>
+                  <span>{{Carbon\Carbon::parse($booking->tanggal_booking)->translatedFormat('d F Y');}}</span>
               </div>
               <div class="flex justify-between">
                   <span class="font-semibold">Jam Mulai:</span>
@@ -71,5 +76,7 @@
       }
     });
   };
+
+  
 </script>
 </x-layout>

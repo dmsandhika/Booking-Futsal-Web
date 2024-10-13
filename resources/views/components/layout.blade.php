@@ -8,6 +8,7 @@
    href="https://cdn.jsdelivr.net/npm/rippleui@1.12.1/dist/css/styles.css"
 />
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
   @vite('resources/css/app.css')
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
   
