@@ -16,6 +16,7 @@
     "dependencies": {
         "flowbite": "^2.5.2",
         "nanoid": "^5.0.7",
-        "rippleui": "^1.12.1"
+        "rippleui": "^1.12.1",
+        "sweetalert2": "^11.14.3"
     }
 }
