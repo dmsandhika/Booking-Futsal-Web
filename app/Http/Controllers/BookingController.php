@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Dompdf\Options;
 use App\Models\Booking;
 use App\Models\Lapangan;
 use App\Models\Properti;
-use Illuminate\Http\Request;
 use Hidehalo\Nanoid\Client;
+use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Hidehalo\Nanoid\GeneratorInterface;
 
 
@@ -91,20 +93,28 @@ class BookingController extends Controller
     public function show(string $id)
     {
         $booking = Booking::findOrFail($id); 
-        return view('payment', compact('booking')); 
+        return view('payment', compact(var_name: 'booking')); 
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Booking  $booking
-     * @return \Illuminate\Http\Response
      */
     public function success(Booking $booking, string $id){
         $booking = Booking::findOrFail($id);
         $booking->status = 'paid';
         $booking->save();
-        return view('success');
+        return view('payment-success', compact('booking'));
+    }
+
+
+    public function download(string $id){
+
+
+        $booking = Booking::findOrFail($id);
+        $pdf = Pdf::loadView('download-payment', ['booking' => $booking] );
+        return $pdf->download('bukti.pdf');
     }
     /**
      * Show the form for editing the specified resource.
