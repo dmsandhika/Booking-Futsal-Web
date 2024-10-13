@@ -49,6 +49,15 @@ class BookingController extends Controller
                 'dibayar' => 'required',
                 'jenis_pembayaran' => 'required'                 
             ]);
+            $existingBooking = Booking::where('lapangan', $request->lapangan)
+            ->where('tanggal_booking', $request->tanggal_booking)
+            ->where(function($query) use ($request){
+                $query->whereBetween('jam_mulai', [$request->jam_mulai,$request->jam_selesai])
+                ->orWhereBetween('jam_selesai', [$request->jam_mulai,$request->jam_selesai]);
+            }) ->exists();
+            if ($existingBooking) {
+                return back()->withErrors(['msg' => 'Lapangan ini sudah dibooking pada waktu tersebut.']);
+            }
             $client = new Client();
             $generator = $client->formattedId('0123456789',10);
             $id_pembayaran = 'FTSL'.$generator;
@@ -115,6 +124,12 @@ class BookingController extends Controller
         $booking = Booking::findOrFail($id);
         $pdf = Pdf::loadView('download-payment', ['booking' => $booking] );
         return $pdf->download('bukti.pdf');
+    }
+
+    public function search(Request $request){
+        $search = $request->search;
+        $booking = Booking::where('id_pembayaran', 'like', '%'.$search.'%')->get();
+        return view('search-transaksi-view', compact('booking'));
     }
     /**
      * Show the form for editing the specified resource.

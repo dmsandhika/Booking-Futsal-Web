@@ -2,11 +2,11 @@
     <div class="p-6 mt-24">
       <h1 class="text-3xl text-center font-bold mb-4">Form Booking Lapangan Futsal</h1>
   
-      <form class="bg-black p-6 rounded-lg shadow-lg" action={{ route('booking.store') }} method="POST">
+      <form class="bg-black p-6 rounded-lg shadow-lg" id="myForm" action={{ route('booking.store') }} method="POST">
         @csrf
         <div class="mb-6">
           <label class="block text-lg font-semibold mb-2 text-gray-200">Nama Pemesan</label>
-          <input type="text" name="nama" class="w-full p-2 border rounded-md bg-gray-700 text-gray-100 border-gray-600">
+          <input type="text" name="nama" class="w-full p-2 border rounded-md bg-gray-700 text-gray-100 border-gray-600" required>
         </div>
         <div class="mb-6">
           <h2 class="text-lg font-semibold mb-2 text-gray-200">Pilih Lapangan</h2>
@@ -15,7 +15,7 @@
                 
             <label class="block">
               <input type="radio" name="lapangan" value="{{ $l->nama}}" data-harga="{{ $l->harga }}" class="mr-2 lapangan-radio" onchange="updateTotal()">
-              <img src="{{ asset($l->image ) }}" alt="Lapangan A" class="inline-block mb-2 rounded w-auto h-48">
+              <img src="{{ asset($l->image ) }}" alt="Lapangan A" class="inline-block mb-2 rounded w-auto  h-48 ">
               <span class="block text-center text-gray-300">{{ $l->nama}} - Rp{{ $l->harga }}/Jam</span>
             </label>
             @endforeach
@@ -24,7 +24,7 @@
   
         <div class="mb-6">
           <label class="block text-lg font-semibold mb-2 text-gray-200">Tanggal Booking</label>
-          <input type="date" name="tanggal_booking" class=" p-2 border rounded-md bg-gray-700 text-gray-100 border-gray-600">
+          <input type="date" name="tanggal_booking" class=" p-2 border rounded-md bg-gray-700 text-gray-100 border-gray-600" required>
         </div>
         <div class="mb-6">
           <div class="grid grid-cols-2 gap-4">
@@ -94,7 +94,7 @@
           <span id="harus-dibayar" class="text-xl text-blue-400">Rp0</span>
         </div>
         <input type="hidden" name="total_harga" id="total-harga-input">
-        <input  name="dibayar" id="harus-dibayar-input">
+        <input type="hidden" name="dibayar" id="harus-dibayar-input">
 
         <div>
           <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" >
@@ -103,8 +103,23 @@
         </div>
       </form>
     </div>
-  
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          @if ($errors->any())
+              Swal.fire({
+                  title: 'Error!',
+                  text: '{{ $errors->first() }}', 
+                  icon: 'error',
+                  showConfirmButton: false,
+                  timer: 5000, 
+                timerProgressBar: true,
+              });
+          @endif
+      });
+  </script>
+    <script>
+
       function toggleProperti(show) {
         const formProperti = document.getElementById('form-properti');
         if (show) {
