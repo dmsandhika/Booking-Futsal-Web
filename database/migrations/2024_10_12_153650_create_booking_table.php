@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('id_pembayaran');
             $table->string('nama'); 
-            $table->string('lapangan'); 
+            $table->string('id_lapangan'); 
             $table->date('tanggal_booking'); 
             $table->time('jam_mulai');
             $table->time('jam_selesai'); 

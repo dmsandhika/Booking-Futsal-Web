@@ -49,7 +49,7 @@ class BookingController extends Controller
                 'dibayar' => 'required',
                 'jenis_pembayaran' => 'required'                 
             ]);
-            $existingBooking = Booking::where('lapangan', $request->lapangan)
+            $existingBooking = Booking::where('id_lapangan', $request->lapangan)
             ->where('tanggal_booking', $request->tanggal_booking)
             ->where(function($query) use ($request){
                 $query->whereBetween('jam_mulai', [$request->jam_mulai,$request->jam_selesai])
@@ -64,7 +64,7 @@ class BookingController extends Controller
             $booking=Booking::create([
                 'id_pembayaran' => $id_pembayaran,
                 'nama' => $request->nama,
-                'lapangan' => $request->lapangan,
+                'id_lapangan' => $request->lapangan,
                 'tanggal_booking' => $request->tanggal_booking,
                 'jam_mulai' => $request->jam_mulai,
                 'jam_selesai' => $request->jam_selesai,

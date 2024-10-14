@@ -15,19 +15,19 @@ class lapanganSeeder extends Seeder
     {
         Lapangan::create([
             'nama' => 'Lapangan A',
-            'image' => 'img/lapangan_a.webp',
+            'image' => 'lapangan_a.webp',
             'keterangan' => 'Lapangan 1',
             'harga' => 50000
         ]);
         Lapangan::create([
             'nama' => 'Lapangan B',
-            'image' => 'img/lapangan_b.jpg',
+            'image' => 'lapangan_b.jpg',
             'keterangan' => 'Lapangan 2',
             'harga' => 60000
         ]);
         Lapangan::create([
             'nama' => 'Lapangan C',
-            'image' => 'img/lapangan_c.jpg',
+            'image' => 'lapangan_c.jpg',
             'keterangan' => 'Lapangan 3',
             'harga' => 40000
         ]);

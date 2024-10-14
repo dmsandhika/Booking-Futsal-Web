@@ -16,7 +16,7 @@
               </div>
               <div class="flex justify-between">
                   <span class="font-semibold">Lapangan:</span>
-                  <span>{{$booking->lapangan }}</span>
+                  <span>{{$booking->lapangan->nama }}</span>
               </div>
               <div class="flex justify-between">
                   <span class="font-semibold">Tanggal Booking:</span>
