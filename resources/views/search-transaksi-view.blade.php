@@ -41,7 +41,7 @@
                 {{ $b->nama }}
               </td>
               <td class="px-6 py-4">
-                {{ $b->lapangan }}
+                {{ $b->lapangan->nama }}
               </td>
               <td class="px-6 py-4">
                 {{ Carbon\Carbon::parse($b->tanggal_booking)->translatedFormat('d F Y')}}
