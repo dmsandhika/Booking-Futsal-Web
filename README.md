@@ -105,3 +105,13 @@
 
 To access the admin panel powered by Filament, use the following URL after starting the server:
 
+http://localhost:8000/admin
+
+
+You can create an admin user by running:
+
+```bash
+php artisan make:filament-user
+```
+Follow the prompts to set up an admin account for accessing the panel.
+
