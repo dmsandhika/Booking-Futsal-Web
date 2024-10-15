@@ -1,7 +1,19 @@
 <x-layout>
   <div class="relative overflow-x-auto mt-24">
     <h2 class="text-3xl font-bold mb-12 text-center">Cek Riwayat Transaksi</h2>
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded">
+    <div class="flex justify-center">
+      <form action="{{ route('booking.search') }}" method="GET">
+        <div class="flex items-center">
+          <span class="p-2 border rounded-md bg-gray-700 border-gray-600">#
+            </span>
+          <input type="text" name="search" class="w-full p-2 border rounded-md bg-gray-700 text-gray-100 border-gray-600" placeholder="Masukkan ID Registrasi">
+          <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-5">
+            Cari
+          </button>
+        </div>
+      </form>
+    </div>
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded mt-12">
         <thead class="text-xs text-gray-700 uppercase bg-gray-900 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">

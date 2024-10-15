@@ -14,8 +14,13 @@ Route::get('/payment/download/{id}', [BookingCOntroller::class, 'download'])->na
 Route::get('/search', function(){
     return view('search-transaksi');
 });
+Route::get('/cek', [BookingController::class, 'cekView']);
+Route::get('/cekBooking', [BookingController::class, 'cekBooking'])->name('booking.cek');
 Route::get('/search/transaksi', [BookingController::class, 'search'])->name('booking.search');
 
 Route::get('/payment', function () {
     return view('payment');
+});
+Route::get('/contact', function () {
+    return view('contact');
 });

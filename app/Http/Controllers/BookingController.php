@@ -154,4 +154,21 @@ class BookingController extends Controller
     {
         //
     }
+
+    public function cekView(){
+        $lapangan=Lapangan::all();
+        return view('cek', compact('lapangan'));
+    }
+
+    public function cekBooking(Request $request){
+        $lapangan=Lapangan::all();
+        $tgl = $request->tgl;
+        $lap = $request->lap;
+        $thisLap= Lapangan::where('id','like',$lap)->first();
+
+        $booking = Booking::where('tanggal_booking','like', $tgl)
+        ->where('id_lapangan','like', $lap)
+        ->get();
+        return view('cek-booking', compact('booking', 'lapangan', 'tgl', 'thisLap'));
+    }
 }
