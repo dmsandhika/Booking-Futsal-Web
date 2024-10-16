@@ -104,62 +104,19 @@
       <h2 class="text-3xl text-center font-semibold text-gray-300 mb-8 mt-36">FAQ</h2>
       <div class="mx-24">
         <div class="accordion-group">
+          @foreach ($faq as  $f)
           <div class="accordion">
-            <input type="checkbox" id="accordion-1" class="accordion-toggle" />
-            <label for="accordion-1" class="accordion-title">Bagaimana cara melakukan booking lapangan?</label>
+            <input type="checkbox" id="accordion-{{ $f->id }}" class="accordion-toggle" />
+            <label for="accordion-{{ $f->id }}" class="accordion-title">{{ $f->pertanyaan }}</label>
             <span class="accordion-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
             </span>
             <div class="accordion-content">
-              <div class="min-h-0">Untuk melakukan booking lapangan, Anda perlu mengunjungi halaman pemesanan di website kami. Pertama, pilih jenis lapangan yang ingin Anda sewa. Selanjutnya, tentukan tanggal dan waktu yang diinginkan. Setelah itu, masukkan data diri Anda dan ikuti proses pembayaran yang disediakan. Setelah pembayaran berhasil, Anda akan menerima konfirmasi booking melalui email atau pesan di aplikasi kami.
+              <div class="min-h-0">{{ $f->jawaban }}
               </div>
             </div>
           </div>
-          <div class="accordion">
-            <input type="checkbox" id="accordion-2" class="accordion-toggle" />
-            <label for="accordion-2" class="accordion-title">Apakah saya bisa membatalkan atau mengubah jadwal booking?</label>
-            <span class="accordion-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
-            </span>
-            <div class="accordion-content">
-              <div class="min-h-0">Ya, Anda dapat membatalkan atau mengubah jadwal booking Anda. Namun, kami meminta agar perubahan dilakukan maksimal 24 jam sebelum waktu yang dijadwalkan. Untuk membatalkan atau mengubah, silakan hubungi customer service kami melalui fitur chat di website atau melalui email. Kami akan membantu memproses permintaan Anda sesuai kebijakan pembatalan yang berlaku.
-              </div>
-            </div>
-          </div>
-          <div class="accordion">
-            <input type="checkbox" id="accordion-3" class="accordion-toggle" />
-            <label for="accordion-3" class="accordion-title">Apakah ada layanan tambahan selain booking lapangan?</label>
-            <span class="accordion-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
-            </span>
-            <div class="accordion-content">
-              <div class="min-h-0">Tentu saja! Selain booking lapangan, kami juga menyediakan berbagai layanan tambahan untuk meningkatkan pengalaman bermain Anda. Anda bisa menyewa bola futsal, rompi untuk membedakan tim, dan berbagai minuman penyegar untuk menjaga hidrasi selama bermain. Pastikan untuk memilih layanan tambahan saat melakukan booking agar semuanya siap saat Anda tiba.
-              </div>
-            </div>
-          </div>
-          <div class="accordion">
-            <input type="checkbox" id="accordion-4" class="accordion-toggle" />
-            <label for="accordion-4" class="accordion-title">Apakah saya perlu membayar penuh di muka?</label>
-            <span class="accordion-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
-            </span>
-            <div class="accordion-content">
-              <div class="min-h-0">Anda memiliki dua pilihan untuk pembayaran: Anda bisa membayar 50% sebagai uang muka (DP) untuk mengonfirmasi booking Anda, atau melakukan pembayaran penuh di muka. Kami menerima berbagai metode pembayaran yang aman dan mudah, termasuk transfer bank dan pembayaran online. Setelah pembayaran diterima, Anda akan mendapatkan notifikasi konfirmasi melalui email, dan booking Anda akan terjamin.
-              </div>
-            </div>
-          </div>
-          <div class="accordion">
-            <input type="checkbox" id="accordion-5" class="accordion-toggle" />
-            <label for="accordion-5" class="accordion-title">Apa saja syarat dan ketentuan untuk menggunakan lapangan?
-            </label>
-            <span class="accordion-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
-            </span>
-            <div class="accordion-content">
-              <div class="min-h-0">Sebelum menggunakan lapangan, semua pemain diharapkan untuk mengikuti syarat dan ketentuan yang berlaku. Ini termasuk menjaga kebersihan lapangan dan tidak membawa makanan atau minuman dari luar. Kami juga mendorong semua pemain untuk menghormati waktu bermain dan menghindari keterlambatan. Jika ada pelanggaran terhadap ketentuan ini, kami berhak untuk mengambil tindakan yang diperlukan demi kenyamanan bersama.
-              </div>
-            </div>
-          </div>
+          @endforeach
         </div>
       </div>
     </div>

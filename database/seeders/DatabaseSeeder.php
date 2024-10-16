@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(lapanganSeeder::class);
         $this->call(PropertiSeeder::class);
+        $this->call(FaqSeeder::class);
     }
 }
