@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\FaqController;
+use App\Http\Controllers\Api\BookingController;
 use App\Http\Controllers\Api\LapanganController;
 use App\Http\Controllers\Api\PropertiController;
 
@@ -32,4 +33,12 @@ Route::prefix('faq')->group(function(){
     Route::post('/', [FaqController::class, 'store']);
     Route::put('/{id}', [FaqController::class, 'update']);
     Route::delete('/{id}', [FaqController::class, 'destroy']);
+});
+
+Route::prefix('booking')->group(function(){
+    Route::get('/', [BookingController::class, 'index']);
+    Route::get('/{id}', [BookingController::class, 'show']);
+    Route::post('/', [BookingController::class, 'store']);
+    Route::put('/{id}', [BookingController::class, 'update']);
+    Route::delete('/{id}', [BookingController::class, 'destroy']);
 });

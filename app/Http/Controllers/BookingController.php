@@ -43,7 +43,7 @@ class BookingController extends Controller
                 'lapangan' =>'required',
                 'tanggal_booking' => 'required',
                 'jam_mulai' =>'required',
-                'jam_selesai' => 'required',
+                'jam_selesai' => 'required|after:jam_mulai',
                 'properti' => 'nullable',
                 'total_harga' => 'required',                
                 'dibayar' => 'required',
