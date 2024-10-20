@@ -30,7 +30,9 @@ class LapanganResource extends Resource
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('image')
                     ->image()
-                    ->required(),
+                    ->required()
+                    ->disk('public_image')
+                    ->acceptedFileTypes(['image/jpeg', 'image/png']),
                 Forms\Components\TextInput::make('harga')
                     ->required()
                     ->numeric(),
@@ -45,7 +47,8 @@ class LapanganResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('keterangan')
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('image'),
+                Tables\Columns\ImageColumn::make('image')
+                ->disk('public_image'),
                 Tables\Columns\TextColumn::make('harga')
                     ->numeric()
                     ->sortable(),

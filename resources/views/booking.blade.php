@@ -15,7 +15,7 @@
                 
             <label class="block">
               <input type="radio" name="lapangan" value="{{ $l->id}}" data-harga="{{ $l->harga }}" class="mr-2 lapangan-radio" onchange="updateTotal()">
-              <img src="{{Storage::url($l->image) }}" alt="Lapangan A" class="inline-block mb-2 rounded w-auto  h-48 ">
+              <img src="{{asset("/image/".$l->image) }}" alt="Lapangan A" class="inline-block mb-2 rounded w-auto  h-48 ">
               <span class="block text-center text-gray-300">{{ $l->nama}} - Rp{{ $l->harga }}/Jam</span>
             </label>
             @endforeach
